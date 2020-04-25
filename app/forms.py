@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField
+from wtforms import IntegerField, StringField, RadioField, TextAreaField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
 from app.models import User
 
@@ -14,6 +14,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(),EqualTo('password')])
+    job = RadioField('Job type',choices=[('Acc','Accountant'),('Enterpu','Enterpurner')])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -30,3 +31,11 @@ class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
+
+class AddTransactionForm(FlaskForm):
+    tr_id = IntegerField('Transaction ID', validators=[DataRequired()])
+    date = StringField('Date of Transaction', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[Length(min=0,max=140)])
+    tr_type = StringField('Type of Transaction', validators=[DataRequired()])
+    amount = IntegerField('Amount', validators=[DataRequired()])
+    submit = SubmitField('Add Transaction')

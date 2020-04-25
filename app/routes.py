@@ -7,10 +7,12 @@ from flask_login import login_required
 from app import db
 from app.forms import RegistrationForm
 from app.models import User
+from app.models import Transaction
 from flask import request
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app.forms import EditProfileForm
+from app.forms import AddTransactionForm
 
 @app.route('/')
 @app.route('/index')
@@ -49,7 +51,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data,email=form.email.data)
+        user = User(username=form.username.data,email=form.email.data,job=form.job.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -69,6 +71,19 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+
+@app.route('/add_transaction',methods=['GET','POST'])
+@login_required
+def add_transaction():
+    form = AddTransactionForm()
+    if form.validate_on_submit():
+        transaction = Transaction(tr_id=form.tr_id.data, date=form.date.data, description=form.description.data, tr_type=form.tr_type.data, amount=form.amount.data)
+        transaction.user_id = current_user.id
+        db.session.add(transaction)
+        db.session.commit()
+        flash('You have sucessfully added the transaction!')
+        return redirect(url_for('index'))
+    return render_template('transaction.html',title='New Transaction',form=form)    
 
 @app.route('/edit_profile', methods=['GET','POST'])
 @login_required
