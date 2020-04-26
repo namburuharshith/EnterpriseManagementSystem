@@ -99,3 +99,31 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile', form = form)
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+@app.route('/home')
+def home():
+    return render_template("home.html")
+
+@app.route('/jquery_min')
+def jquery_min():
+    return render_template('jquery.min.js')
+
+@app.route('/browser_min')
+def browser_min():
+    return render_template('browser.min.js')
+
+@app.route('/breakpoints_min')
+def breakpoints_min():
+    return render_template('breakpoints.min.js')
+
+@app.route('/util')
+def util():
+    return render_template('util.js')
+
+@app.route('/main')
+def main():
+    return render_template('main.js')
