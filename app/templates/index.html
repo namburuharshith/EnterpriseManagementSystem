@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Hello, {{ current_user.username }}!</h1>
     <p>Add a new Transaction<a href="{{ url_for('add_transaction') }}">Click here</a></p>
-    {% for po in posts %}
-    <div><p>{{po.author.username}} says: <b>{{po.body}}</b></p></div>
+    {% for po in transaction %}
+    <div><p>{{po.tr_id}} says: <b>{{po.amount}}</b></p></div>
     {% endfor %}
 {% endblock %} 

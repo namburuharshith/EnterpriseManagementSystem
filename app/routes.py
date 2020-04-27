@@ -1,41 +1,49 @@
-from flask import render_template,flash,redirect,url_for
-from app import app
-from app.forms import LoginForm
-from flask_login import logout_user
-from flask_login import current_user,login_user
-from flask_login import login_required
-from app import db
-from app.forms import RegistrationForm
-from app.models import User
-from app.models import Transaction
-from flask import request
+from flask import render_template, flash, redirect, url_for,  request
+from app import app, db
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm
+from flask_login import logout_user, current_user, login_user, login_required
+from app.models import User, Transaction
 from werkzeug.urls import url_parse
 from datetime import datetime
-from app.forms import EditProfileForm
-from app.forms import AddTransactionForm
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    user = {'username':'Namburu'}
-    posts = [{'author':{'username':'John'},'body': 'Beatiful day'},{'author':{'username':'ss'},'body': 'OMG'}]
-    return render_template("index.html", title='HomePage',posts=posts)
+    #user = {'username':'Namburu'}
+    #posts = [{'author':{'username':'John'},'body': 'Beatiful day'},{'author':{'username':'ss'},'body': 'OMG'}]
+    transaction = Transaction.query.filter_by(user_id=current_user.id)  
+    return render_template("index.html", title='HomePage',transaction=transaction)
+
+@app.route('/acc_index')
+@login_required
+def acc_index():
+    transaction = Transaction.query.filter_by(user_id=4)  
+    return render_template("acc_index.html", title='HomePage',transaction=transaction)        
 
 @app.route('/login',methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        if current_user.job == 'Acc':
+            return redirect(url_for('acc_index'))
+        else:    
+            return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('index'))
+            if user.job == 'Acc':
+                return redirect(url_for('acc_index'))
+            else:    
+                return redirect(url_for('index'))
         login_user(user,remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
+            if user.job == 'Acc':
+                next_page = url_for('acc_index')
+            else:
+                next_page = url_for('index')    
         return redirect(next_page) 
         ##return redirect(url_for('index')) 
     return render_template('login.html', title='Sign In', form=form)
