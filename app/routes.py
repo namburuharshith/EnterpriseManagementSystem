@@ -18,7 +18,9 @@ def index():
 @app.route('/acc_index')
 @login_required
 def acc_index():
-    transaction = Transaction.query.filter_by(user_id=4)  
+    #should link 
+    link = 3
+    transaction = Transaction.query.filter_by(user_id=link)  
     return render_template("acc_index.html", title='HomePage',transaction=transaction)        
 
 @app.route('/login',methods=['GET','POST'])
@@ -119,7 +121,10 @@ def add_comment(trans_id):
         comment.user_id = current_user.id
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('index'))
+        if current_user.job == 'Acc':
+            return redirect(url_for('acc_index'))
+        else:
+            return redirect(url_for('index'))
     return render_template('add_comment.html',title='New Comment',form=form,comm=comm)        
 
 @app.route('/about')

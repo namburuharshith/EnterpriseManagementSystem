@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content %}
+{% block app_content %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <h1>Hello, {{ current_user.username }}!</h1>
-    <p>Add a new Transaction<a href="{{ url_for('add_transaction') }}">Click here</a></p>
+    {% if form %}
+    {{ wtf.quick_form(form) }}
+    <br>
+    {% endif %}
+    <br>
+    <p> <a href="{{ url_for('add_transaction') }}" class="btn btn-lg btn-success">New Transaction</a> <i class="fa fa-file-text-o fa-3x" aria-hidden="true" style="margin-left: 15px" ></i></p>
+
     {% for po in transaction %}
     <div>
     	<p>tr_id : {{po.tr_id}} <b>{{po.amount}}</b> <b><a href="{url_for('edit', trans_id=po.id)}">Edit</a></b><a href="{{ url_for('add_comment', trans_id = po.id) }}">Add Comment</a></p>
     </div>
     {% endfor %}
-{% endblock %} 
+{% endblock %}
