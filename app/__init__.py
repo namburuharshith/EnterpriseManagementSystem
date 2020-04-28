@@ -12,4 +12,8 @@ migrate = Migrate(app,db)
 login = LoginManager(app)
 login.login_view = 'login'
 from app import routes,models
+<<<<<<< HEAD
 bootstrap = Bootstrap(app)
+=======
+bootstrap = Bootstrap(app) 
+>>>>>>> fb34deb43ae73667eb1d3a42e18eb7a5330ed177
