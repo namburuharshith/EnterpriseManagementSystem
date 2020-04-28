@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block app_content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <table>
         <tr valign="top">
             <td><img src="{{ user.avatar(128) }}"></td>
             <td>
-                <h1>User: {{ user.username }}</h1>
-                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif%}
-                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
-                <p><a href="{{ url_for('edit_profile') }}">Edit Profile</a></p>
+                    <h1 style="margin-left:50px;"><i class="fa fa-user" aria-hidden="true">User: {{ user.username }} </i></h1>
+                    {% if user.about_me %}<p style="margin-left: 50px;">{{ user.about_me }}</p>{% endif%}
+                    {% if user.last_seen %}<p style="margin-left: 50px;">Last seen on: {{ user.last_seen }}</p>{% endif %}
+
+                <p style="margin-left:50px;"><a class="btn btn-primary" href="{{ url_for('edit_profile') }}">Edit Profile</a></p>
+                <p style="margin-left:50px;"> <kbd>FOLLOW <b>INDUSTRIOUS</b> ON SOCIAL MEDIA</kbd> </p>
+                <a href="#" style="margin-left:50px;"><i class="fa fa-facebook-square fa-3x"></i></a>
+                <a href="#" style="margin-left:50px;"><i class="fa fa-twitter fa-3x "></i></a>
+                <a href="#" style="margin-left:50px;"><i class="fa fa-linkedin fa-3x"></i></a>
+                <a href="#" style="margin-left:50px; color:#e52d27;"><i class="fa fa-youtube-play fa-3x"></i></a>
             </td>
         </tr>
     </table>
     <hr>
-    {% for post in posts %}
-        {% include '_post.html' %}
-    {% endfor %}
-{% endblock %}
+ {% endblock %}   
+ 

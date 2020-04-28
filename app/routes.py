@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for,  request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm, AddCommentForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm, AddCommentForm, EditTransactionForm
 from flask_login import logout_user, current_user, login_user, login_required
 from app.models import User, Transaction, Comment
 from werkzeug.urls import url_parse
@@ -94,6 +94,27 @@ def add_transaction():
         flash('You have sucessfully added the transaction!')
         return redirect(url_for('index'))
     return render_template('transaction.html',title='New Transaction',form=form)    
+
+@app.route('/edit_transaction/<trans_id>',methods=['GET','POST'])
+@login_required
+def edit_transaction(trans_id):
+    form = EditTransactionForm()
+    transaction = Transaction.query.filter_by(id=trans_id).first_or_404()
+    if form.validate_on_submit():
+        transaction.tr_id = form.tr_id.data
+        transaction.date = form.date.data
+        transaction.description = form.description.data
+        transaction.tr_type = form.tr_type.data
+        transaction.amount = form.amount.data
+        db.session.commit()
+        return redirect(url_for('edit_transaction',trans_id=transaction.id))
+    elif request.method == 'GET':
+        form.tr_id.data = transaction.tr_id
+        form.date.data = transaction.date
+        form.description.data = transaction.description
+        form.tr_type.data = transaction.tr_type
+        form.amount.data = transaction.amount   
+    return render_template('edit_transaction.html',title='Edit Transaction',form=form)   
 
 @app.route('/edit_profile', methods=['GET','POST'])
 @login_required
