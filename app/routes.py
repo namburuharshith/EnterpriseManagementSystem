@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for,  request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm, AddCommentForm
 from flask_login import logout_user, current_user, login_user, login_required
-from app.models import User, Transaction
+from app.models import User, Transaction, Comment
 from werkzeug.urls import url_parse
 from datetime import datetime
 
@@ -18,7 +18,9 @@ def index():
 @app.route('/acc_index')
 @login_required
 def acc_index():
-    transaction = Transaction.query.filter_by(user_id=4)  
+    #should link 
+    link = 3
+    transaction = Transaction.query.filter_by(user_id=link)  
     return render_template("acc_index.html", title='HomePage',transaction=transaction)        
 
 @app.route('/login',methods=['GET','POST'])
@@ -99,7 +101,7 @@ def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.username = form.username.data
-        current_user.about_me = form.about_me.data
+        current_user.about_me = form.about_me.datat
         db.session.commit()
         flash('Your changes have been saved')
         return redirect(url_for('edit_profile'))
@@ -107,6 +109,23 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile', form = form)
+
+@app.route('/add_comment/<trans_id>',methods=['GET','POST'])    
+@login_required
+def add_comment(trans_id):
+    form = AddCommentForm()
+    comm = Comment.query.filter_by(trans_id=trans_id)
+    if form.validate_on_submit():
+        comment = Comment(comment=form.comment.data)
+        comment.trans_id = trans_id
+        comment.user_id = current_user.id
+        db.session.add(comment)
+        db.session.commit()
+        if current_user.job == 'Acc':
+            return redirect(url_for('acc_index'))
+        else:
+            return redirect(url_for('index'))
+    return render_template('add_comment.html',title='New Comment',form=form,comm=comm)        
 
 @app.route('/about')
 def about():

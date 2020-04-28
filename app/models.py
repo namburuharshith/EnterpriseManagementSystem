@@ -15,6 +15,7 @@ class User(UserMixin,db.Model):
     password_hash = db.Column(db.String(128))
     job = db.Column(db.String(64))
     posts = db.relationship('Post',backref='author',lazy='dynamic')
+    comment = db.relationship('Comment',backref='comment_by',lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -42,7 +43,17 @@ class Transaction(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Transaction {}>'.format(self.tr_id)        
+        return '<Transaction {}>'.format(self.tr_id)        \
+
+class Comment(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    comment = db.Column(db.String(64))
+    trans_id = db.Column(db.Integer,db.ForeignKey('transaction.id')) 
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Comment> {}>'.format(self.comment)
+
 
 class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
