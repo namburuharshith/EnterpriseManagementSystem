@@ -2,30 +2,65 @@
 
 {% block app_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <table>
-        <tr valign="top">
-            <td><img src="{{ user.avatar(200) }}" alt="Gravtar" style="border-radius:50%;"></td>
-            <td>
-                    <h1 style="margin-left:50px;"><i class="fa fa-user" aria-hidden="true">User: {{ user.username }} </i></h1>
-                    {% if user.about_me %}<p style="margin-left: 50px;">{{ user.about_me }}</p>{% endif%}
-                    {% if user.last_seen %}<p style="margin-left: 50px;">Last seen on: {{ user.last_seen }}</p>{% endif %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                <p style="margin-left:50px;"><a class="btn btn-primary" href="{{ url_for('edit_profile') }}">Edit Profile</a></p>
-                 <span class="label label-success" style="margin-left:50px;">FOLLOW <b>INDUTRIOUS</b>ON SOCIAL MEDIA</span>
-                 <br>
-                 <br>
-                <a href="#" style="margin-left:50px;"><i class="fa fa-facebook-square fa-3x"></i></a>
-                <a href="#" style="margin-left:50px;"><i class="fa fa-twitter fa-3x "></i></a>
-                <a href="#" style="margin-left:50px;"><i class="fa fa-linkedin fa-3x"></i></a>
-                <a href="#" style="margin-left:50px; color:#e52d27;"><i class="fa fa-youtube-play fa-3x"></i></a>
-            </td>
-        </tr>
-    </table>
-    <hr>
- {% endblock %}   
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: white;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+
+<h2 style="text-align:center">User Profile Card</h2>
+<br>
+<div class="card">
+
+  <img src="{{ user.avatar(150) }}" alt="Gravtar" style="border-radius:60%;">
+  <br>
+  <h1>{{ user.username }}</h1>
+  <p class="title">CEO & Founder, Example</p>
+  <p>Harvard University</p>
+  <a href="#" style="margin-left:5px; color:#3b5998;"><i class="fa fa-facebook-square fa-1x"></i></a>
+  <a href="#" style="margin-left:5px; color:#55acee;"><i class="fa fa-twitter fa-1x"></i></a>
+  <a href="#" style="margin-left:5px;color:#0976b4;"><i class="fa fa-linkedin fa-1x"></i></i></a>
+  <p style="margin-top: 5px;"><button><a href="{{ url_for('edit_profile') }}">Edit Profile</button></a></p>
+</div>
+
+{% endblock %}   
 
 
- 
+
 
 
  
