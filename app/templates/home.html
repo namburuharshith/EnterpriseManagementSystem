@@ -15,6 +15,23 @@
 	</head>
 	<body class="is-preload">
 
+		<!-- Header -->
+		<header id="header">
+			<a class="logo">Industrious</a>
+			<nav>
+				<a href="#menu">Menu</a>
+			</nav>
+		</header>
+
+	<!-- Nav -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="{{ url_for('login')}}">Login</a></li>
+				<li><a href="{{ url_for('register')}}">Register</a></li>
+				<li><a href="{{ url_for('about')}}">About</a></li>
+			</ul>
+		</nav>
+
 		<!-- Banner -->
 			<section id="banner">
 				<div class="inner">
