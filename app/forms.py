@@ -43,3 +43,11 @@ class AddTransactionForm(FlaskForm):
 class AddCommentForm(FlaskForm):
     comment = TextAreaField('Describe', validators=[DataRequired(),Length(min=0,max=140)])
     submit = SubmitField('Comment')
+
+class EditTransactionForm(FlaskForm):
+    tr_id = IntegerField('Transaction ID', validators=[DataRequired()])
+    date = StringField('Date of Transaction', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[Length(min=0,max=140)])
+    tr_type = StringField('Type of Transaction', validators=[DataRequired()])
+    amount = IntegerField('Amount', validators=[DataRequired()])
+    submit = SubmitField('Edit Transaction')

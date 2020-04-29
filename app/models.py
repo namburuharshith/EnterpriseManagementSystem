@@ -43,7 +43,7 @@ class Transaction(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Transaction {}>'.format(self.tr_id)        \
+        return '<Transaction {}>'.format(self.tr_id)        
 
 class Comment(db.Model):
     id = db.Column(db.Integer,primary_key=True)
