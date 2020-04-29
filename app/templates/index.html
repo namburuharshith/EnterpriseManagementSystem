@@ -4,6 +4,28 @@
 {% block app_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style>
+    table {
+    border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+tr:nth-chid(odd)
+{
+    background-color: #ffffff;
+}
+
+</style>
 
     <h1>Hello, {{ current_user.username }}!</h1>
     {% if form %}
@@ -13,9 +35,50 @@
     <br>
     <p> <a href="{{ url_for('add_transaction') }}" class="btn btn-lg btn-success">New Transaction</a> <i class="fa fa-file-text-o fa-3x" aria-hidden="true" style="margin-left: 15px" ></i></p>
 
-    {% for po in transaction %}
-    <div>
-    	<p>tr_id : {{po.tr_id}} <b>{{po.amount}}</b> <b><a href="{{ url_for('edit_transaction', trans_id = po.id) }}">Edit</a></b><a href="{{ url_for('add_comment', trans_id = po.id) }}">Add Comment</a></p>
+
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-12'>
+            <h3>Overview of all transactions</h3>
+                <div class="panel panel-default" style='margin: 20px 0; padding:10px; height: 550px;'>
+                    <table>
+                        <tr>
+                            <th>Transaction Id</th>
+                            <th>Date</th>
+                            <th>Transaction Type</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Tools</th>
+                        {% for po in transaction %}
+                            <tr>
+                                <td>{{ po.tr_id }}</td>
+                                <td>{{ po.date }}</td>
+                                <td>{{ po.tr_type }}</td>
+                                <td>Rs. {{ po.amount }}</td>
+                                <td>{{ po.description }}</td>
+                                <td><!-- Have to add status !--></td>
+                                <td> 
+                                <button type="button" class="btn btn-default"><a href="{{ url_for('edit_transaction', trans_id = po.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></button> 
+                                <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o" aria-hidden="true"></i></a></button> </td>
+                            </tr>
+                        {% endfor %}                            
+                        </tr>
+                    </table>
+                </div>                                      
+            </div> 
+        </div>
     </div>
-    {% endfor %}
+
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
