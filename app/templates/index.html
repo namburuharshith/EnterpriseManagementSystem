@@ -15,7 +15,10 @@
 
     {% for po in transaction %}
     <div>
-    	<p>tr_id : {{po.tr_id}} <b>{{po.amount}}</b> <b><a href="{{ url_for('edit_transaction', trans_id = po.id) }}">Edit</a></b><a href="{{ url_for('add_comment', trans_id = po.id) }}">Add Comment</a></p>
+
+        <!-- {% if po.valid == False %}{{Pending}}{% endif %} -->
+    	
+        <p>tr_id : {{po.tr_id}} <b>{{po.amount}}</b> <b></b>{{po.valid}} <b><a href="{{ url_for('edit_transaction', trans_id = po.id) }}">Edit</a></b><a href="{{ url_for('add_comment', trans_id = po.id) }}">Add Comment</a></p>
     </div>
     {% endfor %}
 {% endblock %}

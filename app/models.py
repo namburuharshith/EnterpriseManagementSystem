@@ -39,7 +39,7 @@ class Transaction(db.Model):
     description = db.Column(db.String(140))
     tr_type = db.Column(db.String(64))
     amount = db.Column(db.Integer)
-    #valid option needed
+    valid = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
 
     def __repr__(self):
