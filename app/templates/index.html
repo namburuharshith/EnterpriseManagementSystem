@@ -126,7 +126,8 @@ button.print-button:hover .print-icon::after {
                     <td>{{ po.tr_type }}</td>
                     <td>Rs. {{ po.amount }}</td>
                     <td>{{ po.description }}</td>
-                    <td><!-- Have to add status !--></td>
+                    <!-- {% if po.valid == False %}{{Pending}}{% endif %} -->
+                    <td>{{po.valid}}</td>
                     <td> <button type="button" class="btn btn-default"><a href="{{ url_for('edit_transaction', trans_id = po.id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></button> 
                     <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o" aria-hidden="true"></i></a></button> </td>
                 </tr>
@@ -135,11 +136,3 @@ button.print-button:hover .print-icon::after {
         </table>
     </div>                          
 {% endblock %}
-
-
-
-
-
-
-
-

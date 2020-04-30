@@ -12,8 +12,11 @@ from datetime import datetime
 def index():
     #user = {'username':'Namburu'}
     #posts = [{'author':{'username':'John'},'body': 'Beatiful day'},{'author':{'username':'ss'},'body': 'OMG'}]
-    transaction = Transaction.query.filter_by(user_id=current_user.id)  
-    return render_template("index.html", title='HomePage',transaction=transaction)
+    if current_user.job != 'Acc':
+        transaction = Transaction.query.filter_by(user_id=current_user.id)  
+        return render_template("index.html", title='HomePage',transaction=transaction)
+    else:
+        return redirect(url_for('acc_index'))    
 
 @app.route('/acc_index')
 @login_required
@@ -58,7 +61,10 @@ def logout():
 @app.route('/register',methods=['GET','POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        if current_user.job == 'Acc':
+            return redirect(url_for('acc_index'))
+        else:    
+            return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,email=form.email.data,job=form.job.data)

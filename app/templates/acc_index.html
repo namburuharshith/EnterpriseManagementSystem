@@ -4,7 +4,7 @@
     <h1>Welcome! {{ current_user.username }}!</h1>
     {% for po in transaction %}
     <div>
-    	<p>tr_id : {{po.tr_id}} <b>{{po.amount}}</b> <b><a href="{url_for('edit', trans_id=po.id)}">Edit</a></b><a href="{{ url_for('add_comment', trans_id = po.id) }}">Add Comment</a></p>
+    	<p>tr_id : {{po.tr_id}} <b>{{po.amount}}</b> <a href="{{ url_for('add_comment', trans_id = po.id) }}">Add Comment</a></p>
     </div>
     {% endfor %}
 {% endblock %}   
