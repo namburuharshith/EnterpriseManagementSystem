@@ -4,111 +4,32 @@
 {% block app_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="{{url_for('static', filename='js/myscript.js')}}"></script>
+
 <style>
-    button.print-button {
-  width: 100px;
-  height: 100px;
-}
-span.print-icon, span.print-icon::before, span.print-icon::after, button.print-button:hover .print-icon::after {
-  border: solid 4px #333;
-}
-span.print-icon::after {
-  border-width: 2px;
-}
 
-button.print-button {
-  position: relative;
-  padding: 0;
-  border: 0;
-  
-  border: none;
-  background: transparent;
-}
-
-span.print-icon, span.print-icon::before, span.print-icon::after, button.print-button:hover .print-icon::after {
-  box-sizing: border-box;
-  background-color: #fff;
-}
-
-span.print-icon {
-  position: relative;
-  display: inline-block;  
-  padding: 0;
-  margin-top: 20%;
-
-  width: 60%;
-  height: 35%;
-  background: #fff;
-  border-radius: 20% 20% 0 0;
-}
-
-span.print-icon::before {
-  content: " ";
-  position: absolute;
-  bottom: 100%;
-  left: 12%;
-  right: 12%;
-  height: 110%;
-
-  transition: height .2s .15s;
-}
-
-span.print-icon::after {
-  content: " ";
-  position: absolute;
-  top: 55%;
-  left: 12%;
-  right: 12%;
-  height: 0%;
-  background: #fff;
-  background-repeat: no-repeat;
-  background-size: 70% 90%;
-  background-position: center;
-  background-image: linear-gradient(
-    to top,
-    #fff 0, #fff 14%,
-    #333 14%, #333 28%,
-    #fff 28%, #fff 42%,
-    #333 42%, #333 56%,
-    #fff 56%, #fff 70%,
-    #333 70%, #333 84%,
-    #fff 84%, #fff 100%
-  );
-
-  transition: height .2s, border-width 0s .2s, width 0s .2s;
-}
-
-button.print-button:hover {
-  cursor: pointer;
-}
-
-button.print-button:hover .print-icon::before {
-  height:0px;
-  transition: height .2s;
-}
-button.print-button:hover .print-icon::after {
-  height:120%;
-  transition: height .2s .15s, border-width 0s .16s;
-}
+.red { color: #d00909; }  
+.green { color: #3c763d; }  
 
 </style>
+
+<script type="text/javascript">
+  $(function(){
+  $('#keywords').tablesorter(); 
+});
+</script>
+
     <div class="container">
         <h1>Hello, {{ current_user.username }}!</h1>
-        {% if form %}
-            {{ wtf.quick_form(form) }}
-        <br>
-        {% endif %}
         <br>
         <p> <a href="{{ url_for('add_transaction') }}" class="btn btn-lg btn-success">New Transaction</a> <i class="fa fa-file-text-o fa-3x" aria-hidden="true" style="margin-left: 15px" ></i></p>
         <br>
-        <h3>Overview of all transactions</h3> 
-        <button class="print-button" onclick="print()"><span class="print-icon"></span></button>
+        <h1>Overview of all transactions</h1> 
         <br>
         <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
         <br>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" id="keywords">
             <thead>
-                <tr>
+                <tr style="background-color: #dddddd">
                     <th>Transaction Id</th>
                     <th>Date</th>
                     <th>Transaction Type</th>
@@ -119,14 +40,21 @@ button.print-button:hover .print-icon::after {
                 </tr>
             </thead>
             <tbody id="myTable">
-            {% for po in Transaction %}
+            {% for po in transaction %}
                 <tr>
                     <td>{{ po.tr_id }}</td>
                     <td>{{ po.date }}</td>
                     <td>{{ po.tr_type }}</td>
                     <td>Rs. {{ po.amount }}</td>
                     <td>{{ po.description }}</td>
-                    <!-- {% if po.valid == False %}{{Pending}}{% endif %} -->
+                    <td>{% if po.valid == False %}
+                      <p style="text-align: center;"><i class="fa fa-circle red" aria-hidden="true"></i></p>
+                      {% else %}
+                      <p style="text-align: center;"><i class="fa fa-circle green" aria-hidden="true"></i></p>
+                      {% endif %}
+                    </td>
+                    <td> <button type="button" class="btn btn-default"><a href="{{ url_for('edit_transaction', trans_id = po.id) }}"><i class="fa fa-pencil-square-o fa-1x" aria-hidden="true"></i></a></button> 
+                    <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o fa-1x" aria-hidden="true"></i></a></button> </td>
                 </tr>
             {% endfor %}                            
             </tbody>

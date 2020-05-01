@@ -6,7 +6,7 @@ from app.models import User, Transaction, Comment
 from werkzeug.urls import url_parse
 from datetime import datetime
 
-@app.route('/')
+
 @app.route('/index')
 @login_required
 def index():
@@ -158,6 +158,7 @@ def add_comment(trans_id):
 def about():
     return render_template("about.html")
 
+@app.route('/')
 @app.route('/home')
 def home():
     return render_template("home.html")
