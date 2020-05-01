@@ -10,8 +10,6 @@ from datetime import datetime
 @app.route('/index')
 @login_required
 def index():
-    #user = {'username':'Namburu'}
-    #posts = [{'author':{'username':'John'},'body': 'Beatiful day'},{'author':{'username':'ss'},'body': 'OMG'}]
     if current_user.job != 'Acc':
         transaction = Transaction.query.filter_by(user_id=current_user.id)  
         return render_template("index.html", title='HomePage',transaction=transaction)
@@ -24,7 +22,7 @@ def acc_index():
     #should link 
     link = 3
     transaction = Transaction.query.filter_by(user_id=link)  
-    return render_template("acc_index.html", title='HomePage',transaction=transaction)        
+    return render_template("acc_index.html", title='HomePage',transaction=transaction)            
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -50,7 +48,6 @@ def login():
             else:
                 next_page = url_for('index')    
         return redirect(next_page) 
-        ##return redirect(url_for('index')) 
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
@@ -87,6 +84,12 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+
+@app.route('/get_returns')
+@login_required
+def get_returns():
+    transactions = Transaction.query.filter_by(user_id=current_user.id)
+    return render_template('returns.html',title='Returns',transaction=transactions)
 
 @app.route('/add_transaction',methods=['GET','POST'])
 @login_required
