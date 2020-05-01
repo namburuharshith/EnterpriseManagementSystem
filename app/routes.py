@@ -24,7 +24,7 @@ def acc_index():
     #should link 
     link = 3
     transaction = Transaction.query.filter_by(user_id=link)  
-    return render_template("acc_index.html", title='HomePage',transaction=transaction)        
+    return render_template("acc_index.html", title='HomePage',transaction=transaction)            
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -87,6 +87,12 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+
+@app.route('/get_returns')
+@login_required
+def get_returns():
+    transactions = Transaction.query.filter_by(user_id=current_user.id)
+    return render_template('returns.html',title='Returns',transaction=transactions)
 
 @app.route('/add_transaction',methods=['GET','POST'])
 @login_required

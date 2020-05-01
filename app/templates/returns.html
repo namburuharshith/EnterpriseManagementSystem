@@ -1,0 +1,7 @@
+{% block content %}
+    {% for po in transaction %}
+    <div>
+    	<p>tr_id : {{po.tr_id}} <b>{{po.amount}}</b> </p>
+    </div>
+    {% endfor %}
+{% endblock %}   
