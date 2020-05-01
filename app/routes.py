@@ -6,12 +6,10 @@ from app.models import User, Transaction, Comment
 from werkzeug.urls import url_parse
 from datetime import datetime
 
-@app.route('/')
+
 @app.route('/index')
 @login_required
 def index():
-    #user = {'username':'Namburu'}
-    #posts = [{'author':{'username':'John'},'body': 'Beatiful day'},{'author':{'username':'ss'},'body': 'OMG'}]
     if current_user.job != 'Acc':
         transaction = Transaction.query.filter_by(user_id=current_user.id)  
         return render_template("index.html", title='HomePage',transaction=transaction)
@@ -50,7 +48,6 @@ def login():
             else:
                 next_page = url_for('index')    
         return redirect(next_page) 
-        ##return redirect(url_for('index')) 
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
@@ -164,6 +161,7 @@ def add_comment(trans_id):
 def about():
     return render_template("about.html")
 
+@app.route('/')
 @app.route('/home')
 def home():
     return render_template("home.html")
