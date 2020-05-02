@@ -14,7 +14,11 @@
     	if current_user.job == 'Acc' then url_for('acc_index') else url_for('index') 
     -->
 
-    <p><a href="{{ url_for('index') }}"  class="btn btn-success">Back</a></p>
+    {% if current_user.job =='Acc' %}
+	<p><a href="{{ url_for('acc_index') }}"  class="btn btn-success">Back</a></p>
+	{% else %}
+	<p><a href="{{ url_for('index') }}"  class="btn btn-success">Back</a></p>
+	{% endif %}
 {% endblock %}
 
 
