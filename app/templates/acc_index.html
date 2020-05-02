@@ -42,63 +42,7 @@
   bottom: 0;
   transition: opacity 0.25s;
 }
-.btn-toggle:before {
-  content: 'Off';
-  left: -4rem;
-}
-.btn-toggle:after {
-  content: 'On';
-  right: -4rem;
-  opacity: 0.5;
-}
-.btn-toggle > .handle {
-  position: absolute;
-  top: 0.1875rem;
-  left: 0.1875rem;
-  width: 1.125rem;
-  height: 1.125rem;
-  border-radius: 1.125rem;
-  background: #fff;
-  transition: left 0.25s;
-}
-.btn-toggle.active {
-  transition: background-color 0.25s;
-}
-.btn-toggle.active > .handle {
-  left: 1.6875rem;
-  transition: left 0.25s;
-}
-.btn-toggle.active:before {
-  opacity: 0.5;
-}
-.btn-toggle.active:after {
-  opacity: 1;
-}
-.btn-toggle.btn-sm:before,
-.btn-toggle.btn-sm:after {
-  line-height: -0.5rem;
-  color: #fff;
-  letter-spacing: 0.75px;
-  left: 0.4125rem;
-  width: 2.325rem;
-}
-.btn-toggle.btn-sm:before {
-  text-align: right;
-}
-.btn-toggle.btn-sm:after {
-  text-align: left;
-  opacity: 0;
-}
-.btn-toggle.btn-sm.active:before {
-  opacity: 0;
-}
-.btn-toggle.btn-sm.active:after {
-  opacity: 1;
-}
-.btn-toggle.btn-xs:before,
-.btn-toggle.btn-xs:after {
-  display: none;
-}
+
 .btn-toggle:before,
 .btn-toggle:after {
   color: #6b7381;
@@ -135,11 +79,11 @@
   transition: opacity 0.25s;
 }
 .btn-toggle.btn-lg:before {
-  content: 'Off';
-  left: -5rem;
+  content: 'Pending';
+  left: -6rem;
 }
 .btn-toggle.btn-lg:after {
-  content: 'On';
+  content: 'Done';
   right: -5rem;
   opacity: 0.5;
 }
@@ -209,7 +153,7 @@
 	<div class="container">
 		<h1>Welcome, {{ current_user.username }}!</h1>
 		<br>
-		<h3>Overview of all transactions</h3> 
+		<h1>Overview of all transactions</h1> 
 		<br>
 		<input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
         <br>
@@ -234,11 +178,11 @@
                     <td>Rs. {{ po.amount }}</td>
                     <td>{{ po.description }}</td>
                     <td>
-                    	<div class="col-sm-5">
-      						<button type="button" class="btn btn-lg btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
-        					<div class="handle"></div>
-      						</button>
-    					</div>	
+                      <div class="col-sm-5">
+      						      <button type="button" class="btn btn-lg btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+        					       <div class="handle"></div>
+      						      </button>
+    					        </div>	
                     </td>
                     <td> <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o" aria-hidden="true"></i></a></button> </td>
                 </tr>
