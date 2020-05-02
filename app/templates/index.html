@@ -49,9 +49,9 @@
                     <td>Rs. {{ po.amount }}</td>
                     <td>{{ po.description }}</td>
                     <td>{% if po.valid == False %}
-                      <p style="text-align: center;">Pending <i class="fa fa-circle red" aria-hidden="true"></i></p>
+                      <p style="text-align: center;"><i class="fa fa-circle red" aria-hidden="true"> Pending</i></p>
                       {% else %}
-                      <p style="text-align: center;">Done <i class="fa fa-circle green" aria-hidden="true"></i></p>
+                      <p style="text-align: center;"><i class="fa fa-circle green" aria-hidden="true"> Done</i></p>
                       {% endif %}
                     </td>
                     <td> <button type="button" class="btn btn-default"><a href="{{ url_for('edit_transaction', trans_id = po.id) }}"><i class="fa fa-pencil-square-o fa-1x" aria-hidden="true"></i></a></button> 
