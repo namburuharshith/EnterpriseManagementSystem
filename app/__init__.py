@@ -13,3 +13,5 @@ login = LoginManager(app)
 login.login_view = 'login'
 from app import routes,models
 bootstrap = Bootstrap(app)
+app.config['UPLOAD_FLODER']='/home/harshith/microblog/uploads'
+app.config['MAX_CONTENT_LENGTH']=16*1024*1024
