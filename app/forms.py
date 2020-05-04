@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, StringField, RadioField, TextAreaField, PasswordField, BooleanField, SubmitField
+from wtforms import IntegerField, StringField, RadioField, TextAreaField, PasswordField, BooleanField, SubmitField, FileField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
 from app.models import User
 
@@ -40,6 +40,7 @@ class AddTransactionForm(FlaskForm):
     description = TextAreaField('Description', validators=[Length(min=0,max=140)])
     tr_type = StringField('Type of Transaction', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
+    file = FileField()
     submit = SubmitField('Add Transaction')
 
 class AddCommentForm(FlaskForm):

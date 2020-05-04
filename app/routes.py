@@ -4,6 +4,7 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransacti
 from flask_login import logout_user, current_user, login_user, login_required
 from app.models import User, Transaction, Comment
 from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
 from datetime import datetime
 
 
@@ -98,6 +99,8 @@ def add_transaction():
     if form.validate_on_submit():
         transaction = Transaction(tr_id=form.tr_id.data, date=form.date.data, description=form.description.data, tr_type=form.tr_type.data, amount=form.amount.data)
         transaction.user_id = current_user.id
+        filename = secure_filename(form.file.data.filename)
+        form.file.data.save('uploads/'+filename)
         db.session.add(transaction)
         db.session.commit()
         flash('You have sucessfully added the transaction!')
