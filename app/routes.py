@@ -208,3 +208,7 @@ def util():
 @app.route('/main')
 def main():
     return render_template('main.js')
+
+@app.route('/brd')
+def brd():
+    return render_template('brd.html')

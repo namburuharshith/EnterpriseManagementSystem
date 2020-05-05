@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+		
+	<h1 style="font-size: 50px; text-align: center; padding-bottom:50px;"><b>Meet the Developers</b></h1>			
+		
+
+	<div class="col-md-12">
+
+		<div class="col-md-3">
+			<img src="{{ url_for('static', filename= 'images/tharun.jpg')}}" alt="Tharun Ravuri" style="max-width: 150px; height: auto; margin-left: 20px; margin-top: 10px;">
+		</div>
+
+		<div class="col-md-9">
+			<h1 style="font-family: courier;">Tharun Ravuri</h1>
+			<h4>(Front-end web developer)</h4>
+			<p style="font-size: 20px;">Tharun Ravuri a cse undergraduate from Amrita University has extensive and disverse experience in front-end web development. He led the front-end of the application and designed the application.</p>
+		</div>
+
+	<div class="col-md-12" style="padding-top: 50px;">
+
+		<div class="col-md-3">
+			<img src="{{ url_for('static', filename= 'images/harshith.jpeg')}}" alt="Harshith" style="max-width: 150px; height: auto; margin-right:50px;margin-top: 50px;">
+		</div>
+
+		<div class="col-md-9">
+			<h1 style="font-family: courier;">Namburu Harshith</h1>
+			<h4>(Back-end web developer)</h4>
+			<p style="font-size: 20px;">Namburu Harshith a cse undergraduate from Amrita University worked on back-end of this application. He has extensive experience on building technology platforms for various business verticals such as Enterprise Management System, Delivery Management System.</p>
+		</div>
+	</div>
+
+	<div class="col-md-12" style="padding-top: 50px;">
+
+		<div class="col-md-3">
+			<img src="{{ url_for('static', filename= 'images/deepth.jpeg')}}" alt="Deepthi" style="max-width: 150px; height: auto;">
+		</div>
+
+		<div class="col-md-9">
+			<h1 style="font-family: courier;">Akula Sri Deepthi</h1>
+			<h4>(Code Review)</h4>
+			<p style="font-size: 20px;">Akula Sri Deepthi a cse undergraduate from Amrita University worked on code review. Armed with the diverse experience of working in code review she reviewed the entire application and made a meaningful contribution towards the application.</p>
+		</div>
+	</div>
+
+	<div class="col-md-12" style="padding-top: 50px;">
+
+		<div class="col-md-3">
+			<img src="{{ url_for('static', filename= 'images/konda.jpg')}}" alt="Dinesh" style="max-width: 150px; height: auto;margin-top: 30px;">
+		</div>
+
+		<div class="col-md-9">
+			<h1 style="font-family: courier;">Dinesh Ch</h1>
+			<h4>(Version Control System)</h4>
+			<p style="font-size: 20px;">Dinesh Ch a cse undergraduate from Amrita University worked on the version control system and handled the application perfectly without raising any conflicts.</p>
+		</div>
+	</div>
+
+	<div class="col-md-12" style="padding-top: 50px;">
+
+		<div class="col-md-3">
+			<img src="{{ url_for('static', filename= 'images/konda2.jpg')}}" alt="Dheeraj" style="max-width: 150px; height: auto;margin-top: 30px;">
+		</div>
+
+		<div class="col-md-9" style="margin-top: 20px;">
+			<h1 style="font-family: courier;">Dheeraj Varma</h1>
+			<h4>(Version Control System)</h4>
+			<p style="font-size: 20px;">Dheeraj Varma a cse undergraduate from Amrita University worked on the version control system and handled the application perfectly without raising any conflicts.</p>
+		</div>
+	</div>
+{% endblock %}
