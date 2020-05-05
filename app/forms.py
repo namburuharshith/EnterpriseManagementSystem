@@ -54,3 +54,7 @@ class EditTransactionForm(FlaskForm):
     tr_type = StringField('Type of Transaction', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
     submit = SubmitField('Edit Transaction')
+
+class UpdateStatusForm(FlaskForm):
+    status = RadioField('Status',choices=[('True','Verified'),('False','Pending')],validators=[DataRequired()])
+    submit = SubmitField('Update')

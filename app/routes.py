@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for,  request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm, AddCommentForm, EditTransactionForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm, AddCommentForm, EditTransactionForm, UpdateStatusForm
 from flask_login import logout_user, current_user, login_user, login_required
-from app.models import User, Transaction, Comment
+from app.models import User, Transaction, Comment, Document
 from werkzeug.urls import url_parse
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -34,20 +34,21 @@ def login():
             return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
+        r = form.remember_me.data
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             if user.job == 'Acc':
                 return redirect(url_for('acc_index'))
             else:    
-                return redirect(url_for('index'))
+                return redirect(url_for('index',r=r))
         login_user(user,remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             if user.job == 'Acc':
                 next_page = url_for('acc_index')
             else:
-                next_page = url_for('index')    
+                next_page = url_for('index',r=r)    
         return redirect(next_page) 
     return render_template('login.html', title='Sign In', form=form)
 
@@ -102,6 +103,9 @@ def add_transaction():
         filename = secure_filename(form.file.data.filename)
         form.file.data.save('uploads/'+filename)
         db.session.add(transaction)
+        db.session.commit()
+        document = Document(filename=filename,transaction_id=transaction.id)
+        db.session.add(document)
         db.session.commit()
         flash('You have sucessfully added the transaction!')
         return redirect(url_for('index'))
@@ -158,7 +162,23 @@ def add_comment(trans_id):
             return redirect(url_for('acc_index'))
         else:
             return redirect(url_for('index'))
-    return render_template('add_comment.html',title='New Comment',form=form,comm=comm)        
+    return render_template('add_comment.html',title='New Comment',form=form,comm=comm)     
+
+@app.route('/update_status/<trans_id>',methods=['GET','POST'])
+@login_required
+def update_status(trans_id):
+    form = UpdateStatusForm()
+    transaction = Transaction.query.filter_by(id=trans_id).first_or_404()
+    if form.validate_on_submit():
+        if form.status.data == 'True':
+            transaction.valid = bool(form.status.data)
+        else:
+            x = None
+            transaction.valid = bool(x)
+        db.session.commit()
+        return redirect(url_for('acc_index'))
+    return render_template('status.html',title='Update Status',form=form,tr=transaction)        
+
 
 @app.route('/about')
 def about():

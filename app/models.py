@@ -41,6 +41,8 @@ class Transaction(db.Model):
     amount = db.Column(db.Integer)
     valid = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+    comment = db.relationship('Comment',backref='comment_of',lazy='dynamic')
+    document = db.relationship('Document',backref='document_of',lazy='dynamic')
 
     def __repr__(self):
         return '<Transaction {}>'.format(self.tr_id)        
@@ -54,7 +56,14 @@ class Comment(db.Model):
     def __repr__(self):
         return '<Comment> {}>'.format(self.comment)
 
+class Document(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    filename = db.Column(db.String(140))
+    transaction_id = db.Column(db.Integer,db.ForeignKey('transaction.id'))
 
+    def __repr__(self):
+        return '<Document {}>'.format(self.body)     
+     
 class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     body = db.Column(db.String(140))

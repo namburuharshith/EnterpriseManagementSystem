@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+
+<h1>Update Status</h1>
+    <p>{{tr.id}}</p>
+
+    	<div class="row">
+        	<div class="col-md-6">
+            	{{ wtf.quick_form(form) }}
+        	</div>
+    	</div>
+    	<br>
+
+{% endblock %}
