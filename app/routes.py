@@ -192,3 +192,7 @@ def main():
 @app.route('/brd')
 def brd():
     return render_template('brd.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
