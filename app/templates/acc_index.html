@@ -184,8 +184,9 @@
       						      </button>
     					        </div>	
                     </td>
-                    <td><a href="{{ url_for('update_status', trans_id = po.id) }}">Update_status</a></td>
-                    <td> <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o" aria-hidden="true"></i></a></button> </td>
+                    <td> <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o" aria-hidden="true"></i></a></button>
+                    <button type="button" class="btn btn-default"><a href="{{ url_for('update_status', trans_id = po.id)}}"><i class="fa fa-wrench" aria-hidden="true"></i></a></button> 
+                    </td>
                 </tr>
             {% endfor %}                            
             </tbody>
