@@ -209,6 +209,14 @@ def util():
 def main():
     return render_template('main.js')
 
+@app.route('/myscirpt')
+def myscript():
+    return render_template('myscript.js')
+
+@app.route('/myscript2')
+def myscript2():
+    return render_template('myscript2.js')
+
 @app.route('/brd')
 def brd():
     return render_template('brd.html')
