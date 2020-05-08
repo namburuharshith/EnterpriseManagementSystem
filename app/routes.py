@@ -90,7 +90,7 @@ def before_request():
 @app.route('/get_returns')
 @login_required
 def get_returns():
-    transactions = Transaction.query.filter_by(user_id=current_user.id)
+    transactions = Transaction.query.filter_by(user_id=current_user.id,valid=True)
     return render_template('returns.html',title='Returns',transaction=transactions)
 
 @app.route('/add_transaction',methods=['GET','POST'])
@@ -101,12 +101,13 @@ def add_transaction():
         transaction = Transaction(tr_id=form.tr_id.data, date=form.date.data, description=form.description.data, tr_type=form.tr_type.data, amount=form.amount.data)
         transaction.user_id = current_user.id
         filename = secure_filename(form.file.data.filename)
-        form.file.data.save('uploads/'+filename)
         db.session.add(transaction)
-        db.session.commit()
-        document = Document(filename=filename,transaction_id=transaction.id)
-        db.session.add(document)
-        db.session.commit()
+        db.session.commit()   
+        if filename != '':
+            form.file.data.save('uploads/'+filename)
+            document = Document(filename=filename,transaction_id=transaction.id)
+            db.session.add(document)
+            db.session.commit()
         flash('You have sucessfully added the transaction!')
         return redirect(url_for('index'))
     return render_template('transaction.html',title='New Transaction',form=form)    
