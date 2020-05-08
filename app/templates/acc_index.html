@@ -2,8 +2,10 @@
 
 {% block app_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{{url_for('static', filename='js/myscript.js')}}"></script>
 
-<script type="text/javascript" src="{{url_for('static', filename='js/myscript.js')}}"></script>
+
 
 <style>
 
@@ -157,7 +159,7 @@
 		<br>
 		<input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
         <br>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" id="keywords" class="tablesorter">
             <thead>
                 <tr style="background-color: #dddddd">
                     <th>Transaction Id</th>
@@ -184,8 +186,9 @@
       						      </button>
     					        </div>	
                     </td>
-                    <td><a href="{{ url_for('update_status', trans_id = po.id) }}">Update_status</a></td>
-                    <td> <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o" aria-hidden="true"></i></a></button> </td>
+                    <td> <button type="button" class='btn btn-default'><a href="{{ url_for('add_comment', trans_id = po.id) }}"><i class="fa fa-comments-o" aria-hidden="true"></i></a></button>
+                    <button type="button" class="btn btn-default"><a href="{{ url_for('update_status', trans_id = po.id)}}"><i class="fa fa-wrench" aria-hidden="true"></i></a></button> 
+                    </td>
                 </tr>
             {% endfor %}                            
             </tbody>

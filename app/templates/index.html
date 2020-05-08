@@ -3,6 +3,7 @@
 
 {% block app_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="{{url_for('static', filename='js/myscript.js')}}"></script>
 
 <style>
@@ -12,12 +13,6 @@
 
 </style>
 
-<script type="text/javascript">
-  $(function(){
-  $('#keywords').tablesorter(); 
-});
-  
-</script>
 
     <div class="container">
         <h1>Hello, {{ current_user.username }}!</h1>
