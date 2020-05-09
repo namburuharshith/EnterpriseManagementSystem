@@ -1,5 +1,6 @@
 from flask import render_template, flash, redirect, url_for,  request
 from app import app, db
+from app.get_returns import tax
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddTransactionForm, AddCommentForm, EditTransactionForm, UpdateStatusForm
 from flask_login import logout_user, current_user, login_user, login_required
 from app.models import User, Transaction, Comment, Document
@@ -91,7 +92,9 @@ def before_request():
 @login_required
 def get_returns():
     transactions = Transaction.query.filter_by(user_id=current_user.id,valid=True)
-    return render_template('returns.html',title='Returns',transaction=transactions)
+    cr_tr = Transaction.query.filter_by(user_id=current_user.id,valid=True,tr_type='credited')
+    inc_tax, income = tax(cr_tr)
+    return render_template('returns.html',title='Returns',transaction=transactions,tax=inc_tax,income=income)
 
 @app.route('/add_transaction',methods=['GET','POST'])
 @login_required
