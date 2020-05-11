@@ -49,11 +49,21 @@ button:hover, a:hover {
   <img src="{{ user.avatar(150) }}" alt="Gravtar" style="border-radius:60%;">
   <br>
   <h1>{{ user.username }}</h1>
-  <p class="title">{{ user.designation }}</p>
-  <p>{{ user.company }}</p>
-  <a href="#" style="margin-left:5px; color:#3b5998;"><i class="fa fa-facebook-square fa-1x"></i></a>
-  <a href="#" style="margin-left:5px; color:#55acee;"><i class="fa fa-twitter fa-1x"></i></a>
-  <a href="#" style="margin-left:5px;color:#0976b4;"><i class="fa fa-linkedin fa-1x"></i></i></a>
+  <p class="title">{{ user.about_me }}</p>
+  {% if user.job == "Acc" %}
+      <p>Accountant</p>
+  {% else %}
+      <p>Enterpurner</p>
+  {% endif %}
+  {% if user.designation != "" %}
+      <p>Designation :   {{ user.designation }}</p>
+  {% endif %}
+  {% if user.company != "" %}
+      <p>Company :   {{ user.company }}</p>
+  {% endif %}
+  <a href="{{ user.facebook }}" style="margin-left:5px; color:#3b5998;"><i class="fa fa-facebook-square fa-1x"></i></a>
+  <a href="{{ user.twitter }}" style="margin-left:5px; color:#55acee;"><i class="fa fa-twitter fa-1x"></i></a>
+  <a href="{{ user.linkedin }}" style="margin-left:5px;color:#0976b4;"><i class="fa fa-linkedin fa-1x"></i></a>
   <p style="margin-top: 5px;"><button><a href="{{ url_for('edit_profile') }}">Edit Profile</button></a></p>
   
   {% if current_user.job =='Acc' %}

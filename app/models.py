@@ -14,9 +14,14 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(120),index=True,unique=True)
     password_hash = db.Column(db.String(128))
     job = db.Column(db.String(64))
+    company = db.Column(db.String(64))
+    designation = db.Column(db.String(64))
     posts = db.relationship('Post',backref='author',lazy='dynamic')
     comment = db.relationship('Comment',backref='comment_by',lazy='dynamic')
     about_me = db.Column(db.String(140))
+    facebook = db.Column(db.String(64))
+    twitter = db.Column(db.String(64))
+    linkedin = db.Column(db.String(64)) 
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):

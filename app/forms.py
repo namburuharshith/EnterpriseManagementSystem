@@ -31,6 +31,9 @@ class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     designation = StringField('Designation')
     company = StringField('Company')
+    linkedin = StringField('Linked in')
+    facebook = StringField('Facebook')
+    twitter = StringField('Twitter')
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
 
@@ -53,6 +56,7 @@ class EditTransactionForm(FlaskForm):
     description = TextAreaField('Description', validators=[Length(min=0,max=140)])
     tr_type = StringField('Type of Transaction', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
+    file = FileField()
     submit = SubmitField('Edit Transaction')
 
 class UpdateStatusForm(FlaskForm):

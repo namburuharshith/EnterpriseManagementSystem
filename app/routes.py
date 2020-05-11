@@ -23,8 +23,9 @@ def index():
 def acc_index():
     #should link 
     link = 3
-    transaction = Transaction.query.filter_by(user_id=link)  
-    return render_template("acc_index.html", title='HomePage',transaction=transaction)            
+    transaction = Transaction.query.filter_by(user_id=link)
+    document = Document.query.all()  
+    return render_template("acc_index.html", title='HomePage',transaction=transaction,document=document)            
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -126,7 +127,13 @@ def edit_transaction(trans_id):
         transaction.description = form.description.data
         transaction.tr_type = form.tr_type.data
         transaction.amount = form.amount.data
+        filename = secure_filename(form.file.data.filename)
         db.session.commit()
+        if filename != '':
+            form.file.data.save('uploads/'+filename)
+            document = Document(filename=filename,transaction_id=transaction.id)
+            db.session.add(document)
+            db.session.commit()
         return redirect(url_for('edit_transaction',trans_id=transaction.id))
     elif request.method == 'GET':
         form.tr_id.data = transaction.tr_id
@@ -143,12 +150,22 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
+        current_user.company = form.company.data
+        current_user.designation = form.designation.data 
+        current_user.facebook = form.facebook.data
+        current_user.twitter = form.twitter.data
+        current_user.linkedin = form.linkedin.data
         db.session.commit()
         flash('Your changes have been saved')
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
+        form.company.data = current_user.company
+        form.designation.data = current_user.designation
+        form.facebook.data = current_user.facebook
+        form.linkedin.data = current_user.linkedin
+        form.twitter.data = current_user.twitter
     return render_template('edit_profile.html', title='Edit Profile', form = form)
 
 @app.route('/add_comment/<trans_id>',methods=['GET','POST'])    
