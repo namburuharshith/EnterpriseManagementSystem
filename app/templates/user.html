@@ -55,8 +55,13 @@ button:hover, a:hover {
   <a href="#" style="margin-left:5px; color:#55acee;"><i class="fa fa-twitter fa-1x"></i></a>
   <a href="#" style="margin-left:5px;color:#0976b4;"><i class="fa fa-linkedin fa-1x"></i></i></a>
   <p style="margin-top: 5px;"><button><a href="{{ url_for('edit_profile') }}">Edit Profile</button></a></p>
+  
+  {% if current_user.job =='Acc' %}
+        <p style="margin-top: 5px;"><button><a href="{{ url_for('acc_index') }}">Back</button></a></p>
+    {% else %}
+        <p style="margin-top: 5px;"><button><a href="{{ url_for('index') }}">Back</button></a></p>
+    {% endif %}
 </div>
-
 {% endblock %}   
 
 

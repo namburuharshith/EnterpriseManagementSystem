@@ -174,8 +174,8 @@ button.print-button:hover .print-icon::after {
       <th scope="col">Transaction ID</th>
       <th scope="col">Date</th>
       <th scope="col">Transaction Type</th>
-      <th scope="col">Amount</th>
       <th scope="col">Description</th>
+      <th scope="col">Amount</th>
     </tr>
   </thead>
   <tbody>
@@ -184,12 +184,24 @@ button.print-button:hover .print-icon::after {
     	<td>{{ po.tr_id }}</td>
         <td>{{ po.date }}</td>
         <td>{{ po.tr_type }}</td>
-        <td>Rs. {{ po.amount }}</td>
         <td>{{ po.description }}</td>
+        <td>Rs. {{ po.amount }}</td>
     </tr>
     {% endfor %}
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td style="color: white; background-color: #4CAF50;"><b>Income: </b></td> 
+      <td>Rs. {{ income }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td style="color: white; background-color: #f44336;"><b>Tax: </b></td> 
+      <td>Rs. {{ tax }}</td>
+    </tr>
   </tbody>
 </table>
-<h5>income  : {{income}}</h5>
-<h5>tax     : {{tax}}</h5>
 {% endblock %}

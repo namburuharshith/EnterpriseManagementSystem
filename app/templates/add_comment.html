@@ -113,9 +113,14 @@ h1 {
         </tr>
     </table>
     {% endfor %}
+    {% if current_user.job =='Acc' %}
+        <p><a href="{{ url_for('acc_index') }}"  class="btn btn-success">Back</a></p>
+    {% else %}
+        <p><a href="{{ url_for('index') }}"  class="btn btn-success">Back</a></p>
+    {% endif %}
 </div>
   <div class="col-md-6">
-    <img src="{{ url_for('static', filename= 'images/comment.jpg')}}" alt="comment" style="max-width: 100%; height: auto;">
+    <img src="{{ url_for('static', filename= 'images/comments.jpg')}}" alt="comment" style="max-width: 650px; height: auto;">
   </div>
 </div>
 {% endblock %}

@@ -189,9 +189,9 @@ def about():
     return render_template("about.html")
 
 @app.route('/')
-@app.route('/home')
-def home():
-    return render_template("home.html")
+@app.route('/explore')
+def explore():
+    return render_template("explore.html")
 
 @app.route('/jquery_min')
 def jquery_min():
