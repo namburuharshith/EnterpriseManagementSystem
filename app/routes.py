@@ -152,6 +152,9 @@ def edit_profile():
         current_user.about_me = form.about_me.data
         current_user.company = form.company.data
         current_user.designation = form.designation.data 
+        current_user.facebook = form.facebook.data
+        current_user.twitter = form.twitter.data
+        current_user.linkedin = form.linkedin.data
         db.session.commit()
         flash('Your changes have been saved')
         return redirect(url_for('edit_profile'))
@@ -160,6 +163,9 @@ def edit_profile():
         form.about_me.data = current_user.about_me
         form.company.data = current_user.company
         form.designation.data = current_user.designation
+        form.facebook.data = current_user.facebook
+        form.linkedin.data = current_user.linkedin
+        form.twitter.data = current_user.twitter
     return render_template('edit_profile.html', title='Edit Profile', form = form)
 
 @app.route('/add_comment/<trans_id>',methods=['GET','POST'])    
