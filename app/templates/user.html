@@ -49,8 +49,18 @@ button:hover, a:hover {
   <img src="{{ user.avatar(150) }}" alt="Gravtar" style="border-radius:60%;">
   <br>
   <h1>{{ user.username }}</h1>
-  <p class="title">{{ user.designation }}</p>
-  <p>{{ user.company }}</p>
+  <p class="title">{{ user.about_me }}</p>
+  {% if user.job == "Acc" %}
+      <p>Accountant</p>
+  {% else %}
+      <p>Enterpurner</p>
+  {% endif %}
+  {% if user.designation != None %}
+      <p>Designation :   {{ user.designation }}</p>
+  {% endif %}
+  {% if user.company != None %}
+      <p>Company :   {{ user.company }}</p>
+  {% endif %}
   <a href="#" style="margin-left:5px; color:#3b5998;"><i class="fa fa-facebook-square fa-1x"></i></a>
   <a href="#" style="margin-left:5px; color:#55acee;"><i class="fa fa-twitter fa-1x"></i></a>
   <a href="#" style="margin-left:5px;color:#0976b4;"><i class="fa fa-linkedin fa-1x"></i></i></a>

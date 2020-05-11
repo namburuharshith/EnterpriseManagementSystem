@@ -53,6 +53,7 @@ class EditTransactionForm(FlaskForm):
     description = TextAreaField('Description', validators=[Length(min=0,max=140)])
     tr_type = StringField('Type of Transaction', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
+    file = FileField()
     submit = SubmitField('Edit Transaction')
 
 class UpdateStatusForm(FlaskForm):
