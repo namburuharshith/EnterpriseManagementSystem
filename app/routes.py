@@ -245,3 +245,15 @@ def brd():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/terms')
+def terms():
+    return redirect('https://www.termsandconditionsgenerator.com/live.php?token=ajGs0Y1cg4yVzPMm5tNPj5t8KCaHS7Oi')
+
+@app.route('/policy')
+def policy():
+    return redirect('https://www.privacypolicygenerator.info/live.php?token=EDXwCfzKcR5D6LCyEyrCCtDzT6ySApKT')
+
+@app.route('/disclaimer')
+def disclaimer():
+    return redirect('https://www.disclaimergenerator.net/live.php?token=KGTl18cFWm6Sze9ZKolR8n4HRIxv4lLs')
