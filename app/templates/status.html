@@ -7,8 +7,34 @@
 <div class="col-md-12">
 
 	<div class="col-md-6">
-		<h1 style="padding-bottom: 20px;">Update Status</h1>
-		<h3>Transaction ID: {{tr.id}}</h3>
+		<h1 style="padding-bottom: 20px;">Update Status: <span style="color: #FF1493;">{{ tr.tr_id }}</span></h1>
+		<table class="table table-bordered table-striped">
+				<tr  style="background-color: #dddddd">
+					<th>Date</th>
+					<td>{{ tr.date }}</td>
+				</tr>
+				<tr>
+					<th>Transaction Type</th>
+					<td>{{ tr.tr_type}}</td>
+				</tr>
+				<tr  style="background-color: #dddddd">
+					<th>Amount</th>
+					<td>{{ tr.amount }}</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ tr.description }}</td>
+				</tr>
+				<tr  style="background-color: #dddddd">
+					<th>Status</th>
+					<td>{% if tr.valid == False %}
+						<p>Pending</p>
+						{% else %}
+						<p>Done</p>
+						{% endif %}
+					</td>
+				</tr>
+		</table>
     	<div class="row">
         	<div class="col-md-6">
             	{{ wtf.quick_form(form) }}

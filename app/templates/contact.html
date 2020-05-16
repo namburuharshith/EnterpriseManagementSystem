@@ -315,7 +315,11 @@ document.addEventListener("DOMContentLoaded", app);
                 <a href="{{ url_for('login')}}"><i class="fa fa-youtube icon"></i></a>
               </div>
               <div class="resume">
-                <a href="{{ url_for('home')}}" class="sidebar-link">HOME</a>
+                {% if current_user.job =='Acc' %}
+                  <a href="{{ url_for('acc_index')}}" class="sidebar-link" style="font-size: 25px;">HOME</a>
+                {% else %}
+                  <a href="{{ url_for('index')}}" class="sidebar-link" style="font-size: 25px;">HOME</a>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -351,7 +355,7 @@ document.addEventListener("DOMContentLoaded", app);
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        Made with <i class="fa fa-heart icon"></i> by <b>SAHOO</b>.
+        Made with <i class="fa fa-heart icon"></i> by <b>SAAHO</b>.
       </p>
     </div>
   </footer>
