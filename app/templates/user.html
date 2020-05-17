@@ -2,7 +2,6 @@
 
 {% block app_content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 .card {
@@ -44,34 +43,50 @@ button:hover, a:hover {
 
 <h2 style="text-align:center">User Profile Card</h2>
 <br>
-<div class="card">
 
-  <img src="{{ user.avatar(150) }}" alt="Gravtar" style="border-radius:60%;">
-  <br>
-  <h1>{{ user.username }}</h1>
-  <p class="title">{{ user.about_me }}</p>
-  {% if user.job == "Acc" %}
-      <p>Accountant</p>
-  {% else %}
-      <p>Enterpurner</p>
-  {% endif %}
-  {% if user.designation != "" %}
-      <p>Designation :   {{ user.designation }}</p>
-  {% endif %}
-  {% if user.company != " " %}
-      <p>Company :   {{ user.company }}</p>
-  {% endif %}
-  <a href="{{ user.facebook }}" style="margin-left:5px; color:#3b5998;"><i class="fa fa-facebook-square fa-1x"></i></a>
-  <a href="{{ user.twitter }}" style="margin-left:5px; color:#55acee;"><i class="fa fa-twitter fa-1x"></i></a>
-  <a href="{{ user.linkedin }}" style="margin-left:5px;color:#0976b4;"><i class="fa fa-linkedin fa-1x"></i></a>
-  <p style="margin-top: 5px;"><button><a href="{{ url_for('edit_profile') }}">Edit Profile</button></a></p>
+<div class="col-md-12">
+
+  <div class="col-md-4">
+    <img src="{{ url_for('static', filename= 'images/profile1.png')}}" alt="profile" style="max-width: 100%; height: auto;">
+  </div>
   
-  {% if current_user.job =='Acc' %}
-        <p style="margin-top: 5px;"><button><a href="{{ url_for('acc_index') }}">Back</button></a></p>
-    {% else %}
+  <div class="col-md-4">
+    <div class="card">
+      <img src="{{ user.avatar(150) }}" alt="Gravtar" style="border-radius:60%;">
+      <br>
+      <h1>{{ user.username }}</h1>
+      <p class="title">{{ user.about_me }}</p>
+      {% if user.job == "Acc" %}
+        <p>Accountant</p>
+      {% else %}
+        <h3>Enterpurner</h3>
+      {% endif %}
+      {% if user.designation != "" %}
+        <h4><b>Designation :</b>  {{ user.designation }}</h4>
+      {% endif %}
+      {% if user.company != "" %}
+        <h4><b>Company :</b>   {{ user.company }}</h4>
+      {% endif %}
+      <a href="{{ user.facebook }}" style="margin-left:5px; color:#3b5998;"><i class="fa fa-facebook-square fa-1x"></i></a>
+      <a href="{{ user.twitter }}" style="margin-left:5px; color:#55acee;"><i class="fa fa-twitter fa-1x"></i></a>
+      <a href="{{ user.linkedin }}" style="margin-left:5px;color:#0976b4;"><i class="fa fa-linkedin fa-1x"></i></a>
+      <p style="margin-top: 5px;"><button><a href="{{ url_for('edit_profile') }}">Edit Profile</button></a></p>
+
+      {% if current_user.job =='Acc' %}
+       <p style="margin-top: 5px;"><button><a href="{{ url_for('acc_index') }}">Back</button></a></p>
+      {% else %}
         <p style="margin-top: 5px;"><button><a href="{{ url_for('index') }}">Back</button></a></p>
-    {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <img src="{{ url_for('static', filename= 'images/profile2.jpg')}}" alt="profile" style="max-width: 100%; height: auto;">
+  </div>
+
 </div>
+
+
 {% endblock %}   
 
 

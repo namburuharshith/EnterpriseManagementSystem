@@ -22,7 +22,7 @@ def index():
 @login_required
 def acc_index():
     #should link 
-    link = 3
+    link = 11
     transaction = Transaction.query.filter_by(user_id=link)
     document = Document.query.all()  
     return render_template("acc_index.html", title='HomePage',transaction=transaction,document=document)            
@@ -57,7 +57,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -134,6 +134,7 @@ def edit_transaction(trans_id):
             document = Document(filename=filename,transaction_id=transaction.id)
             db.session.add(document)
             db.session.commit()
+        flash('You have sucessfully edited the transaction!')    
         return redirect(url_for('edit_transaction',trans_id=transaction.id))
     elif request.method == 'GET':
         form.tr_id.data = transaction.tr_id
@@ -179,10 +180,8 @@ def add_comment(trans_id):
         comment.user_id = current_user.id
         db.session.add(comment)
         db.session.commit()
-        if current_user.job == 'Acc':
-            return redirect(url_for('acc_index'))
-        else:
-            return redirect(url_for('index'))
+        flash('You have commented this transaction!')
+        return redirect(url_for('add_comment', trans_id = trans_id))
     return render_template('add_comment.html',title='New Comment',form=form,comm=comm)     
 
 @app.route('/update_status/<trans_id>',methods=['GET','POST'])
@@ -197,7 +196,8 @@ def update_status(trans_id):
             x = None
             transaction.valid = bool(x)
         db.session.commit()
-        return redirect(url_for('acc_index'))
+        flash('You have successfully updated the status of the transaction!')
+        return redirect(url_for('update_status', trans_id=trans_id))
     return render_template('status.html',title='Update Status',form=form,tr=transaction)        
 
 
@@ -245,3 +245,15 @@ def brd():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/terms')
+def terms():
+    return redirect('https://www.termsandconditionsgenerator.com/live.php?token=ajGs0Y1cg4yVzPMm5tNPj5t8KCaHS7Oi')
+
+@app.route('/policy')
+def policy():
+    return redirect('https://www.privacypolicygenerator.info/live.php?token=EDXwCfzKcR5D6LCyEyrCCtDzT6ySApKT')
+
+@app.route('/disclaimer')
+def disclaimer():
+    return redirect('https://www.disclaimergenerator.net/live.php?token=KGTl18cFWm6Sze9ZKolR8n4HRIxv4lLs')
